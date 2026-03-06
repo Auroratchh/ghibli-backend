@@ -1,16 +1,18 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import type { NextConfig } from "next";
 
-export function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-  
-  response.headers.set("Access-Control-Allow-Origin", process.env.FRONTEND_URL || "http://localhost:3000");
-  response.headers.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-  response.headers.set("Access-Control-Allow-Headers", "Content-Type");
-
-  return response;
-}
-
-export const config = {
-  matcher: "/api/:path*",
+const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Origin", value: process.env.FRONTEND_URL || "http://localhost:3000" },
+          { key: "Access-Control-Allow-Methods", value: "GET, OPTIONS" },
+          { key: "Access-Control-Allow-Headers", value: "Content-Type" },
+        ],
+      },
+    ];
+  },
 };
+
+export default nextConfig;
