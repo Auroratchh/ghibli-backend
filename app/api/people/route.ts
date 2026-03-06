@@ -7,8 +7,8 @@ export async function GET() {
     return NextResponse.json(people);
   } catch (error) {
     return NextResponse.json(
-      { message: "Error al obtener los personajes" },
-      { status: 500 }
+      {message: "Error al obtener los personajes" },
+      {status: 500}
     );
   }
 }
